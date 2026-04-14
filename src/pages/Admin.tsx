@@ -27,7 +27,7 @@ export default function Admin() {
 
   const fetchDatasetStatus = async () => {
     try {
-      const response = await fetch("/api/health");
+      const response = await fetch("https://hackverse-production.up.railway.app/api/health");
       const data = await response.json();
       setDatasetStatus({ loaded: data.datasetLoaded, entries: data.datasetEntries });
     } catch (error) {
@@ -37,7 +37,7 @@ export default function Admin() {
 
   const fetchSubmissions = async () => {
     try {
-      const response = await fetch("/api/admin/submissions");
+      const response = await fetch("https://hackverse-production.up.railway.app/api/admin/submissions");
       if (response.ok) {
         const data = await response.json();
         const leaderboardData = data.map((s: any, index: number) => ({
@@ -75,7 +75,7 @@ export default function Admin() {
     formData.append("file", adminFile);
 
     try {
-      const response = await fetch("/api/admin/upload-correct", {
+      const response = await fetch("https://hackverse-production.up.railway.app/api/admin/upload-correct", {
         method: "POST",
         body: formData,
       });
@@ -97,7 +97,7 @@ export default function Admin() {
     try {
       setIsAdminUploading(true);
       // Reset server-side
-      const response = await fetch("/api/admin/reset", { method: "POST" });
+      const response = await fetch("https://hackverse-production.up.railway.app/api/admin/reset", { method: "POST" })
       
       if (response.ok) {
         toast.success("Leaderboard reset successful.");
@@ -116,7 +116,7 @@ export default function Admin() {
 
   const handleDownloadExcel = async () => {
     try {
-      const response = await fetch("/api/admin/download-excel");
+      const response = await fetch("https://hackverse-production.up.railway.app/api/admin/download-excel")
       if (response.ok) {
         const blob = await response.blob();
         const url = window.URL.createObjectURL(blob);
